@@ -1,3 +1,5 @@
+import { PRODUCT_PRICES_INR } from './pricing'
+
 const BOTTLE_PATH = '/images/perfume'
 
 export const perfumes = [
@@ -5,7 +7,7 @@ export const perfumes = [
     id: 'ruby-passion',
     name: 'Ruby Passion',
     tag: 'Ruby',
-    price: 72,
+    price: PRODUCT_PRICES_INR['ruby-passion'],
     rating: 4.8,
     reviews: 214,
     volume: '50ml',
@@ -25,7 +27,7 @@ export const perfumes = [
     id: 'oud-wood',
     name: 'Oud Wood',
     tag: 'Oud',
-    price: 84,
+    price: PRODUCT_PRICES_INR['oud-wood'],
     rating: 4.9,
     reviews: 356,
     volume: '50ml',
@@ -45,7 +47,7 @@ export const perfumes = [
     id: 'lavender-blossom',
     name: 'Lavender Blossom',
     tag: 'Lavender',
-    price: 64,
+    price: PRODUCT_PRICES_INR['lavender-blossom'],
     rating: 4.7,
     reviews: 189,
     volume: '50ml',
@@ -65,7 +67,7 @@ export const perfumes = [
     id: 'blue-wave',
     name: 'Blue Wave',
     tag: 'Blue Wave',
-    price: 78,
+    price: PRODUCT_PRICES_INR['blue-wave'],
     rating: 4.8,
     reviews: 128,
     volume: '50ml',
