@@ -1,6 +1,12 @@
 .reviews {
   background: #141414;
-  padding: 110px 48px;
+  padding: 100px 48px;
+}
+
+.reviews-header {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 50px;
 }
 
 .reviews-kicker {
@@ -16,11 +22,59 @@
 }
 
 .reviews-heading {
-  max-width: 1400px;
-  margin: 0 auto 28px;
   color: #fff;
   font-size: 2.6rem;
   text-align: center;
+  margin-bottom: 12px;
+}
+
+.reviews-subheading {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 1.05rem;
+  margin-bottom: 32px;
+}
+
+.reviews-stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 20px 32px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.r-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.r-stat-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.r-stat-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.r-stat-label {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.02em;
+}
+
+.r-stat-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .reviews-grid {
@@ -47,12 +101,33 @@
   border-color: rgba(76, 175, 80, 0.35);
 }
 
+.review-photo-wrapper {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
 .review-photo {
   width: 100%;
-  height: 260px;
+  height: 100%;
   object-fit: cover;
   object-position: top center;
   display: block;
+}
+
+.review-fragrance-tag {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .review-body {
