@@ -1,47 +1,57 @@
 import { useEffect, useRef, useState } from 'react'
 import { FaHeart, FaFire, FaGem, FaLeaf, FaCompass, FaCrown, FaBolt } from 'react-icons/fa'
+import { perfumes } from '../data/perfumes'
+import { formatINR } from '../data/pricing'
+import { useCartStore } from '../store/useCartStore'
 import './MoodSelector.css'
 
 const MOODS = [
   {
     title: 'The Romantic',
     description: 'Warm florals for golden-hour moments',
+    perfumeId: 'ruby-passion',
     image: '/people/a127d1dc816a727207dfcd788e440d3f.jpg',
     icon: <FaHeart size={20} className="mood-icon-svg" />,
   },
   {
     title: 'The Magnetic',
     description: 'Deep, smoky notes that linger',
+    perfumeId: 'oud-wood',
     image: '/people/c6d03a9f02d2cfb0410ae129e6e6f95c.jpg',
     icon: <FaFire size={20} className="mood-icon-svg" />,
   },
   {
     title: 'The Icon',
     description: 'Bold, unapologetic elegance',
+    perfumeId: 'oud-wood',
     image: '/people/ed7c9b6e46615e66e8f44b328fd616d3.jpg',
     icon: <FaGem size={20} className="mood-icon-svg" />,
   },
   {
     title: 'The Free Spirit',
     description: 'Fresh greens, botanical calm',
+    perfumeId: 'lavender-blossom',
     image: '/people/1b05dd54172b151618ac9b7ecba9e51d.jpg',
     icon: <FaLeaf size={20} className="mood-icon-svg" />,
   },
   {
     title: 'The Adventurer',
     description: 'Daring scents for bold days',
+    perfumeId: 'blue-wave',
     image: '/people/af6777ce69cecd4b65da707386eb43c6.jpg',
     icon: <FaCompass size={20} className="mood-icon-svg" />,
   },
   {
     title: 'The Seductress',
     description: 'Amber warmth, magnetic allure',
+    perfumeId: 'ruby-passion',
     image: '/people/a83ce099b074f55ed9d9f3bc5c51ae93.jpg',
     icon: <FaCrown size={20} className="mood-icon-svg" />,
   },
   {
     title: 'The Rebel',
     description: 'Fresh, fearless, unforgettable',
+    perfumeId: 'blue-wave',
     image: '/people/f4e9be922233f0d3c234809267fdf86d.jpg',
     icon: <FaBolt size={20} className="mood-icon-svg" />,
   },
@@ -53,6 +63,7 @@ const MoodSelector = () => {
   const [inView, setInView] = useState(false)
   const sectionRef = useRef(null)
   const hasAnimated = useRef(false)
+  const { addItem, openCart } = useCartStore()
 
   useEffect(() => {
     const el = sectionRef.current
@@ -79,8 +90,17 @@ const MoodSelector = () => {
     return () => observer.disconnect()
   }, [])
 
+  const handleShopMood = (e, mood) => {
+    e.stopPropagation()
+    const matched = perfumes.find((p) => p.id === mood.perfumeId)
+    if (matched) {
+      addItem(matched)
+      openCart()
+    }
+  }
+
   return (
-    <section className={`mood-selector ${inView ? 'is-in-view' : ''}`} ref={sectionRef}>
+    <section className={`mood-selector ${inView ? 'is-in-view' : ''}`} id="mood-selector" ref={sectionRef}>
       <svg
         className="mood-selector-top-wave"
         viewBox="0 0 1440 100"
@@ -95,12 +115,14 @@ const MoodSelector = () => {
       <div className="mood-selector-header">
         <span className="mood-selector-kicker">Find Your Match</span>
         <h2>Find Your Fragrance Mood</h2>
-        <p>Every scent tells a story — click to discover yours.</p>
+        <p>Every scent tells a story — select your persona to reveal its perfect organic extrait.</p>
       </div>
 
       <div className="mood-options">
         {MOODS.map((mood, index) => {
           const isActive = activeIndex === index
+          const matched = perfumes.find((p) => p.id === mood.perfumeId)
+
           return (
             <div
               key={mood.title}
@@ -113,6 +135,9 @@ const MoodSelector = () => {
                 flex: isActive ? '7 1 0%' : '1 1 0%',
               }}
               onClick={() => setActiveIndex(index)}
+              role="button"
+              tabIndex={0}
+              aria-label={`Select ${mood.title}`}
             >
               <div className="mood-option-shadow" />
               <div className="mood-option-label">
@@ -120,6 +145,17 @@ const MoodSelector = () => {
                 <div className="mood-option-info">
                   <div className="mood-option-title">{mood.title}</div>
                   <div className="mood-option-sub">{mood.description}</div>
+                  {isActive && matched && (
+                    <div className="mood-option-match">
+                      <span className="mood-match-pill">Pairing: {matched.name} ({formatINR(matched.price)})</span>
+                      <button
+                        className="mood-shop-btn"
+                        onClick={(e) => handleShopMood(e, mood)}
+                      >
+                        Shop This Scent →
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

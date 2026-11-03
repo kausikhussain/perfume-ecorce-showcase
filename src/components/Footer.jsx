@@ -54,7 +54,7 @@ const Footer = () => {
       <div className="footer-main">
         <div className="footer-col footer-brand">
           <a href="#home" className="footer-logo">
-            Fruitivo
+            ÉCORCE
             <span>.</span>
             <svg className="footer-logo-leaf" width="18" height="18" viewBox="0 0 24 24" fill="none">
               <path d="M4 20c0-8 6-14 14-14 0 8-6 14-14 14Z" fill="#4CAF50" />
@@ -110,7 +110,7 @@ const Footer = () => {
       </div>
 
       <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} Fruitivo. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} ÉCORCE Parfums. All rights reserved.</p>
       </div>
     </footer>
   )

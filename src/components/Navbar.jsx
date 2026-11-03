@@ -1,16 +1,34 @@
 import { useState } from 'react'
+import { useCartStore } from '../store/useCartStore'
 import './Navbar.css'
 
-const NAV_ITEMS = ['Home', 'About', 'Shop', 'Benefits', 'Contact']
+const NAV_ITEMS = [
+  { label: 'Home', href: '#home' },
+  { label: 'Best Sellers', href: '#best-sellers' },
+  { label: 'Fragrance Moods', href: '#mood-selector' },
+  { label: 'Reviews', href: '#reviews' },
+  { label: 'Newsletter', href: '#footer' },
+]
 
 const Navbar = () => {
   const [active, setActive] = useState('Home')
   const [open, setOpen] = useState(false)
+  const { toggleCart, getTotals } = useCartStore()
+  const { totalCount } = getTotals()
+
+  const handleNavClick = (item) => {
+    setActive(item.label)
+    setOpen(false)
+    const target = document.querySelector(item.href)
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
   return (
     <nav className="navbar">
       <a href="#home" className="navbar-logo">
-        Fruitivo
+        ÉCORCE
         <span className="navbar-logo-dot">.</span>
         <svg className="navbar-logo-leaf" width="16" height="16" viewBox="0 0 24 24" fill="none">
           <path
@@ -32,22 +50,24 @@ const Navbar = () => {
 
       <ul className={`navbar-links ${open ? 'is-open' : ''}`}>
         {NAV_ITEMS.map((item) => (
-          <li key={item}>
+          <li key={item.label}>
             <button
-              className={`navbar-link ${active === item ? 'is-active' : ''}`}
-              onClick={() => {
-                setActive(item)
-                setOpen(false)
-              }}
+              className={`navbar-link ${active === item.label ? 'is-active' : ''}`}
+              onClick={() => handleNavClick(item)}
             >
-              {item}
+              {item.label}
             </button>
           </li>
         ))}
       </ul>
 
       <div className="navbar-icons">
-        <button className="navbar-icon-btn" aria-label="Cart">
+        <button
+          className="navbar-icon-btn navbar-cart-btn"
+          onClick={toggleCart}
+          aria-label="Shopping Bag"
+          title="Open Shopping Bag"
+        >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path
               d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 8H6"
@@ -59,18 +79,7 @@ const Navbar = () => {
             <circle cx="10" cy="21" r="1.4" fill="currentColor" />
             <circle cx="17" cy="21" r="1.4" fill="currentColor" />
           </svg>
-        </button>
-        <button className="navbar-icon-btn" aria-label="Account">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.6" />
-            <circle cx="12" cy="9.5" r="3.2" stroke="currentColor" strokeWidth="1.6" />
-            <path
-              d="M5.5 19c1.3-2.8 3.8-4.3 6.5-4.3s5.2 1.5 6.5 4.3"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-            />
-          </svg>
+          {totalCount > 0 && <span className="nav-cart-badge">{totalCount}</span>}
         </button>
       </div>
     </nav>

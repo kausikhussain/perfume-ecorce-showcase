@@ -182,10 +182,25 @@ const Hero = () => {
               nature&apos;s purest essence to you.
             </motion.p>
             <div className="hero-actions">
-              <button className="btn btn-cream" style={{ color: current.bgColor }}>
-                Shop Now
+              <button
+                className="btn btn-cream"
+                style={{ color: current.bgColor }}
+                onClick={() => {
+                  const target = document.querySelector('#best-sellers')
+                  if (target) target.scrollIntoView({ behavior: 'smooth' })
+                }}
+              >
+                Shop Best Sellers
               </button>
-              <button className="btn btn-outline">Learn More</button>
+              <button
+                className="btn btn-outline"
+                onClick={() => {
+                  const target = document.querySelector('#mood-selector')
+                  if (target) target.scrollIntoView({ behavior: 'smooth' })
+                }}
+              >
+                Find Your Scent
+              </button>
             </div>
 
             <div className="hero-nav">
